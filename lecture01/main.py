@@ -33,7 +33,7 @@ def divide(a1: int, a2: int):
 
 
 def main():
-    # print(get_file_size("main.py"))
+    # print(get_file_size("task02.py"))
     # print(get_file_size("1.py"))
 
     # print(divide_old(-10, 0))
