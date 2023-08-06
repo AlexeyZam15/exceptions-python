@@ -12,8 +12,11 @@ class DividedByZeroException(ArithmeticError):
 # при обращении к пустому элементу в массиве ссылочного типа.
 # Исключение должно отображать понятное для пользователя сообщение об ошибке.
 class NoneElementException(Exception):
-    def __init__(self, index: int, msg: str = "Обращение к None элементу с индексом"):
-        super().__init__(f"{msg}: {index}")
+    def __init__(self, index: int = None, msg: str = "Обращение к None элементу"):
+        if index:
+            super().__init__(f"{msg} c индексом: {index}")
+        else:
+            super().__init__(f"{msg}")
 
 
 class NotNoneElementList:
@@ -34,24 +37,37 @@ class NotNoneElementList:
 # Исключение должно отображать понятное для пользователя сообщение об ошибке.
 
 class IOException(IOError):
-    def __init__(self, path: str, msg: str = "Файл не найден"):
-        super().__init__(f"{msg}: '{path}'")
+    def __init__(self, path: str = None, msg: str = "Файл не найден"):
+        if path:
+            super().__init__(f"{msg}: '{path}'")
+        else:
+            super().__init__(f"{msg}")
 
 
 def main():
-    # try:
-    #     a = 1 / 0
-    # except ZeroDivisionError:
-    #     raise DividedByZeroException
+    try:
+        a = 1 / 0
+    except ZeroDivisionError:
+        try:
+            raise DividedByZeroException
+        except DividedByZeroException as e:
+            print(e)
 
     list1 = NotNoneElementList([1, 2, None, 5])
-    for i in range(len(list1)):
-        print(list1[i])
+    sum = 0
+    try:
+        for i in range(len(list1)):
+            sum += list1[i]
+    except NoneElementException as e:
+        print(e)
 
-    # try:
-    #     open("1.txt")
-    # except IOError as e:
-    #     raise IOException(e.filename)
+    try:
+        open("1.txt")
+    except IOError as e:
+        try:
+            raise IOException(e.filename)
+        except IOException as e:
+            print(e)
 
 
 if __name__ == '__main__':
