@@ -1,8 +1,13 @@
-import datetime
-
 from seminar03.homework.data import Data
-from seminar03.homework.ioexception import IOException
 from seminar03.homework.profile import Profile
+
+
+class IOException(IOError):
+    def __init__(self, path: str = None, msg: str = "Файл не найден"):
+        if path:
+            super().__init__(f"{msg}: '{path}'")
+        else:
+            super().__init__(f"{msg}")
 
 
 class App:
@@ -50,8 +55,8 @@ class App:
         # if self.__file_exists(filename):
         #     filename = self.__find_free_filename(filename)
         try:
-            with open(filename, encoding='utf-8', mode="a") as file:
-                file.write(text+"\n")
+            with open(filename, encoding='utf-8', mode="w") as file:
+                file.write(text + "\n")
         except IOError as e:
             raise IOException(e.filename)
 
