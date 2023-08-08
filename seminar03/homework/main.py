@@ -11,7 +11,6 @@ def main():
             input_mode = app.start()
         except Exception as e:
             print(e)
-    print(app.data)
 
 
 if __name__ == '__main__':

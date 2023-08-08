@@ -41,16 +41,17 @@ class App:
         return self.__data
 
     def start(self):
-        print("Введите фамилию, имя, отчество, дату рождения, телефон и пол")
-        print("q для выхода из программы")
+        print("Введите фамилию, имя, отчество, дату рождения, телефон и пол через пробел")
+        print("q - для выхода из программы")
         return self.__input()
 
     def __create_file(self, filename: str, text: str):
-        if self.__file_exists(filename):
-            filename = self.__find_free_filename(filename)
+        text = "<" + text.replace(" ", "><") + ">"
+        # if self.__file_exists(filename):
+        #     filename = self.__find_free_filename(filename)
         try:
-            with open(filename, encoding='utf-8', mode="w") as file:
-                file.write(text)
+            with open(filename, encoding='utf-8', mode="a") as file:
+                file.write(text+"\n")
         except IOError as e:
             raise IOException(e.filename)
 
