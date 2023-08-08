@@ -14,16 +14,22 @@ class App:
 
     def __input(self):
         data = self.__input_data()
+        if data == "q":
+            return False
         if data == 1 or data == 2:
             print(self.__code_errors[data])
-            return
+            return True
         profile = Profile(*data)
         self.__data.append(profile)
         self.__create_file(profile.last_name, str(profile))
+        return True
 
     @staticmethod
     def __input_data():
-        data = input().split(" ")
+        data = input()
+        if data == "q":
+            return "q"
+        data = data.split(" ")
         if len(data) < 6:
             return 1
         elif len(data) > 6:
@@ -35,7 +41,9 @@ class App:
         return self.__data
 
     def start(self):
-        self.__input()
+        print("Введите фамилию, имя, отчество, дату рождения, телефон и пол")
+        print("q для выхода из программы")
+        return self.__input()
 
     def __create_file(self, filename: str, text: str):
         if self.__file_exists(filename):

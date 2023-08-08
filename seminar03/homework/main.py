@@ -1,12 +1,16 @@
+import os
+
 from seminar03.homework.app import App
 
 
 def main():
     app = App()
-    try:
-        app.start()
-    except Exception as e:
-        print(e)
+    input_mode = True
+    while input_mode:
+        try:
+            input_mode = app.start()
+        except Exception as e:
+            print(e)
     print(app.data)
 
 
