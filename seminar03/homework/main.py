@@ -1,6 +1,7 @@
 import os
+import traceback
 
-from seminar03.homework.app import App
+from seminar03.homework.app import App, IOException
 
 
 def main():
@@ -9,6 +10,8 @@ def main():
     while input_mode:
         try:
             input_mode = app.start()
+        except IOException:
+            traceback.print_exc()
         except Exception as e:
             print(e)
 
